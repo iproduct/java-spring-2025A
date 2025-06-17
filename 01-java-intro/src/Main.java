@@ -1,3 +1,4 @@
+import course.spring.model.Person;
 import course.spring.model.User;
 
 import java.time.LocalDate;
@@ -13,9 +14,10 @@ public class Main {
                 "john", "john123", "john@gmail.com"));
         users.add(new User("Mary","Smith", LocalDate.of(1985, 4, 21),
                 "mary", "mary123", "mary@yahoo.com"));
+//        users.add(new Person("Jane","Doe", LocalDate.of(1982, 9, 21)));
 //        Users.forEach(System.out::println);
-        for(User p : users) {
-            System.out.println(p);
+        for(User u : users) {
+            System.out.println(u);
         }
         System.out.println("========================================");
         for(int i = 0; i < users.size(); i++) {

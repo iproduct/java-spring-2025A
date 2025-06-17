@@ -3,7 +3,7 @@ package course.spring.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Person {
+public class Person implements Identifiable<Long> {
     private static Long nextId = 0L;
     public static Long getNextId() {
         return ++nextId;
