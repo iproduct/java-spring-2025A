@@ -11,7 +11,11 @@ public class User extends Person {
     private String email;
     private boolean active = true;
 
-    public User(String ivan, String petrov, LocalDate localDate, String s, String ivan123, String mail) {
+    public User(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, String email) {
+        super(firstName, lastName, dateOfBirth);
+        this.username = username;
+        this.password = password;
+        this.email = email;
     }
 
     public User(String firstName, String lastName, String username, String password) {
