@@ -1,6 +1,8 @@
 import course.spring.dao.Repository;
+import course.spring.dao.UserRepository;
 import course.spring.dao.impl.LongIdGenerator;
 import course.spring.dao.impl.RepositoryInMemory;
+import course.spring.dao.impl.UserRepositoryInMemory;
 import course.spring.model.Person;
 import course.spring.model.User;
 
@@ -20,7 +22,7 @@ public class Main {
 //        users.add(new Person("Jane","Doe", LocalDate.of(1982, 9, 21)));
 //        Users.forEach(System.out::println);
 
-        Repository<Long, User> userRepo = new RepositoryInMemory<>(new LongIdGenerator());
+        UserRepository userRepo = new UserRepositoryInMemory(new LongIdGenerator());
 
         // fill users into repository
         for(User u : users) {
@@ -30,6 +32,8 @@ public class Main {
         // get and print all users
         var allUsers = userRepo.findAll();
         allUsers.forEach(System.out::println);
+
+        System.out.println(userRepo.findByUsername("john"));
 
     }
 }
