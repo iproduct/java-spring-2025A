@@ -3,7 +3,7 @@ package course.spring.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Person implements Identifiable<Long> {
+public class Person implements Identifiable<Long>, Comparable<Person> {
     private static Long nextId = 0L;
     public static Long getNextId() {
         return ++nextId;
@@ -87,5 +87,10 @@ public class Person implements Identifiable<Long> {
         sb.append(", dateOfBirth=").append(dateOfBirth);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        return (firstName + lastName).toUpperCase().compareTo((o.firstName+o.lastName).toUpperCase());
     }
 }
