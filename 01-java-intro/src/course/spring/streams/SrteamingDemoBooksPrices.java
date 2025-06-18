@@ -13,9 +13,11 @@ public class SrteamingDemoBooksPrices {
 //        MOCK_BOOKS[0].getTitle().contains("java");
         var totalJavaPrice = books
                 .filter(book -> book.getTitle().toLowerCase().contains("java"))
-                .map(book -> book.getPrice())
-                .reduce(0D, (acc, price) -> acc + price);
+//                .map(book -> book.getPrice())
+//                .reduce(0D, (acc, price) -> acc + price);
+                .mapToDouble(book -> book.getPrice())
+                .average();
 //                .forEach(title -> System.out.println(title));
-        System.out.printf("Total Java books price: %8.2f\n", totalJavaPrice);
+        System.out.printf("Total Java books price: %8.2f\n", totalJavaPrice.getAsDouble());
     }
 }

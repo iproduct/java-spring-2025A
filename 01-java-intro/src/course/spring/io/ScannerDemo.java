@@ -8,16 +8,16 @@ public class ScannerDemo  {
 
         Scanner s = null;
 
-        try {
-            s = new Scanner(new BufferedReader(new FileReader("./src/course/spring/io/ScannerDemo.java")));
-
+        try (var br = new BufferedReader(new FileReader("./src/course/spring/io/ScannerDemo.java"))){
+            s = new Scanner(br);
             while (s.hasNext()) {
                 System.out.println(s.nextLine());
             }
-        } finally {
-            if (s != null) {
-                s.close();
-            }
         }
+//        finally {
+//            if (s != null) {
+//                s.close();
+//            }
+//        }
     }
 }
