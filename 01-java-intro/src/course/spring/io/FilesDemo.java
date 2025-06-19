@@ -1,9 +1,6 @@
 package course.spring.io;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -24,7 +21,7 @@ public class FilesDemo {
         System.out.println("===================================================");
         try (
                 BufferedReader reader = Files.newBufferedReader(file, charset);
-                PrintWriter writer = new PrintWriter(Files.newBufferedWriter(out, charset));
+                PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(out.toFile()))));
         ) {
             String line = null;
             int n = 0;

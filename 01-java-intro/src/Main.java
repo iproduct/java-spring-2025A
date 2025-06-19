@@ -34,7 +34,7 @@ public class Main {
 //        users.add(new Person("Jane","Doe", LocalDate.of(1982, 9, 21)));
 //        Users.forEach(System.out::println);
 
-        UserRepository userRepo = new UserRepositoryInMemory(new LongIdGenerator());
+        UserRepository userRepo = UserRepositoryInMemory.getInstance();
 
         // fill users into repository
         for (User u : users) {
