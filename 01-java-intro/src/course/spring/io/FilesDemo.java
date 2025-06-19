@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 
 public class FilesDemo {
     public static void main(String[] args) throws IOException {
-        var file = Paths.get("./src/course/spring/FilesDemo.java").toAbsolutePath();
+        var file = Paths.get("./src/course/spring/io/FilesDemo.java").toAbsolutePath();
         var out = file.getParent().resolve("numbered_source.txt");
         System.out.println(file);
         Charset charset = Charset.forName("utf8");
@@ -19,12 +19,12 @@ public class FilesDemo {
         System.out.println("===================================================");
         try (
                 BufferedReader reader = Files.newBufferedReader(file, charset);
-                BufferedWriter writer = Files.newBufferedWriter(file, charset);
+                BufferedWriter writer = Files.newBufferedWriter(out, charset);
         ) {
             String line = null;
             int n = 0;
             while ((line = reader.readLine()) != null) {
-                line = ++n + ": " + line;
+                line = ++n + ": " + line + "\n";
                 writer.write(line, 0, line.length());
             }
         } catch (IOException x) {
@@ -32,7 +32,7 @@ public class FilesDemo {
         }
 
         // read text file
-        var lines = Files.lines(out).map(line -> line.toUpperCase());
+        var lines = Files.lines(out);
         lines.forEach(System.out::println);
     }
 }
