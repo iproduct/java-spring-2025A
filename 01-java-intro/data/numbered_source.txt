@@ -1,0 +1,43 @@
+1: package course.spring.io;
+2: 
+3: import java.io.BufferedReader;
+4: import java.io.BufferedWriter;
+5: import java.io.IOException;
+6: import java.io.PrintWriter;
+7: import java.nio.charset.Charset;
+8: import java.nio.file.Files;
+9: import java.nio.file.Paths;
+10: 
+11: public class FilesDemo {
+12:     public static void main(String[] args) throws IOException {
+13:         var file = Paths.get("./src/course/spring/io/FilesDemo.java").toAbsolutePath();
+14:         var outDir = Paths.get("./data").toAbsolutePath();
+15:         if(!Files.exists(outDir)) {
+16:             Files.createDirectories(outDir);
+17:         }
+18:         var out = outDir.resolve("numbered_source.txt");
+19:         System.out.println(file);
+20:         Charset charset = Charset.forName("utf8");
+21:         for (String str : Charset.availableCharsets().keySet()) {
+22:             System.out.println(str);
+23:         }
+24:         System.out.println("===================================================");
+25:         try (
+26:                 BufferedReader reader = Files.newBufferedReader(file, charset);
+27:                 PrintWriter writer = new PrintWriter(Files.newBufferedWriter(out, charset));
+28:         ) {
+29:             String line = null;
+30:             int n = 0;
+31:             while ((line = reader.readLine()) != null) {
+32:                 line = ++n + ": " + line;
+33:                 writer.println(line);
+34:             }
+35:         } catch (IOException x) {
+36:             System.err.format("IOException: %s%n", x);
+37:         }
+38: 
+39:         // read text file
+40:         var lines = Files.lines(out);
+41:         lines.forEach(System.out::println);
+42:     }
+43: }
