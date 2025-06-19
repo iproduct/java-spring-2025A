@@ -68,5 +68,16 @@ public class Main {
         Collections.sort(users, Comparator.reverseOrder());
         users.forEach(System.out::println);
 
+        System.out.println("++++++++++++++++++++++++++++++++++++++");
+        //Iterate using Iterator
+        var it = users.listIterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
+        }
+        while(it.hasPrevious()){
+            System.out.println(it.previous());
+        }
+
+
     }
 }

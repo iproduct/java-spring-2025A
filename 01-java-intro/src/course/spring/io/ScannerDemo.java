@@ -7,10 +7,8 @@ import java.util.Scanner;
 
 public class ScannerDemo {
     public String readDataFromFile(String filename) throws IOException, CustomDBExcetion {
-        Scanner s = null;
         StringBuilder sb = new StringBuilder();
-        try (var br = new BufferedReader(new FileReader(filename))) {
-            s = new Scanner(br);
+        try (var s = new Scanner(new BufferedReader(new FileReader(filename)))) {
             while (s.hasNext()) {
                 sb.append(s.nextLine());
             }
