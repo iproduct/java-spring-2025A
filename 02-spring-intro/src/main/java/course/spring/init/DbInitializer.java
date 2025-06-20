@@ -17,6 +17,7 @@ import java.util.List;
 public class DbInitializer implements ApplicationRunner {
     @Autowired
     private UserRepository userRepo;
+
     private static final List<User> USERS = List.of(
             new User("Ivan", "Petrov", LocalDate.of(1978, 5, 17),
                     "ivan", "ivan123", "ivan@gmail.com"),
