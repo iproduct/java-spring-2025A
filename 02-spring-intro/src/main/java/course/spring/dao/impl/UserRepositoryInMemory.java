@@ -3,9 +3,14 @@ package course.spring.dao.impl;
 import course.spring.dao.IdGenerator;
 import course.spring.dao.UserRepository;
 import course.spring.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Repository
+@Scope("singleton") //by default
 public class UserRepositoryInMemory extends RepositoryInMemory<Long, User> implements UserRepository {
     private static UserRepositoryInMemory theInstance = new UserRepositoryInMemory(new LongIdGenerator());
 
@@ -13,7 +18,8 @@ public class UserRepositoryInMemory extends RepositoryInMemory<Long, User> imple
         return theInstance;
     }
 
-    private UserRepositoryInMemory(IdGenerator<Long> idGenerator) {
+    @Autowired
+    public UserRepositoryInMemory(LongIdGenerator idGenerator) {
         super(idGenerator);
     }
 
