@@ -11,6 +11,9 @@ public class User extends Person {
     private String email;
     private boolean active = true;
 
+    public User() {
+    }
+
     public User(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, String email) {
         super(firstName, lastName, dateOfBirth);
         this.username = username;
