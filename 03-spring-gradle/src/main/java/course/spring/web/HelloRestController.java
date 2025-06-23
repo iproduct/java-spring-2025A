@@ -34,9 +34,4 @@ public class HelloRestController {
                 String.format("Patient: %s<br>\n", patient != null ? patient : "not_present");
     }
 
-    @GetMapping("users")
-    public List<User> allUsers(){
-        return userRepo.findAll();
-    }
-
 }
