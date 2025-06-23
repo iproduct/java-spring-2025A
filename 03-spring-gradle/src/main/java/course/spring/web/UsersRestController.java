@@ -5,6 +5,7 @@ import course.spring.dto.ErrorResponse;
 import course.spring.exception.NonexistingEntityException;
 import course.spring.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
