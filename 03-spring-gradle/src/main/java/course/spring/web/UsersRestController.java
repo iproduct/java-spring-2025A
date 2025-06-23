@@ -1,6 +1,8 @@
 package course.spring.web;
 
 import course.spring.dao.UserRepository;
+import course.spring.dto.ErrorResponse;
+import course.spring.exception.NonexistingEntityException;
 import course.spring.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,13 +23,21 @@ public class UsersRestController {
         return userRepo.findAll();
     }
 
+//    @GetMapping("{id}")
+//    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
+//        var result = userRepo.findById(id);
+//        if(result.isPresent()) {
+//            return ResponseEntity.ok(result.get());
+//        }
+//        return ResponseEntity.notFound().build();
+//    }
+
     @GetMapping("{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
-        var result = userRepo.findById(id);
-        if(result.isPresent()) {
-            return ResponseEntity.ok(result.get());
-        }
-        return ResponseEntity.notFound().build();
+    public User getUserById(@PathVariable("id") Long id) {
+        return userRepo.findById(id).orElseThrow(
+                () -> new NonexistingEntityException(
+                        String.format("User with ID='%d' not found.", id)
+                ));
     }
 
     @PostMapping
@@ -39,6 +49,13 @@ public class UsersRestController {
                         .pathSegment("{id}")
                         .buildAndExpand(newUser.getId()).toUri()
         ).body(newUser);
+    }
+
+    @ExceptionHandler(NonexistingEntityException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(NonexistingEntityException exception){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new ErrorResponse(404, exception.getMessage(), null)
+        );
     }
 
 }
