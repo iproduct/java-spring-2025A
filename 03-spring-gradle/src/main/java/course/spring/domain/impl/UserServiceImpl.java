@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService, BeanNameAware, ApplicationC
     private String beanName;
     private ApplicationContext ctx;
     private ServletContext servletContext;
-    @Autowired
+
     private UserRepository userRepo;
 
     @Override
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService, BeanNameAware, ApplicationC
     @PostConstruct
     public void init() {
         log.info(String.format("!!!!! Bean '%s' constructed successfully.", beanName));
-
+        userRepo = ctx.getBean(UserRepository.class);
     }
 
     @PreDestroy
