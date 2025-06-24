@@ -18,9 +18,9 @@
 <!--        </property>-->
 <!--    </bean>-->
 
-    <bean id="repoFactoryInMemory" class="coredemo.domain.PresenterFactory"></bean>
+    <bean id="repoFactoryInMemory" class="course.spring.dao.impl.RepoFactoryInMemory" />
     <bean id="userRepo" name="userRepossitoryInMemory" class="course.spring.dao.impl.UserRepositoryInMemory"
-          c:idGenerator-ref="longIdGen" />
+          factory-bean="repoFactoryInMemory" factory-method="createUserRepo" c:idGenerator-ref="longIdGen" />
     <!--        <constructor-arg name="idGenerator" index="0" type="course.spring.dao.IdGenerator" ref="idGenerator">-->
     <!--            <ref bean="idGenerator"></ref>-->
     <!--        </constructor-arg>-->
