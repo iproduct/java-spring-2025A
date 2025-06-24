@@ -1,6 +1,7 @@
 package course.spring.web;
 
 import course.spring.dao.UserRepository;
+import course.spring.domain.UserService;
 import course.spring.dto.ErrorResponse;
 import course.spring.exception.NonexistingEntityException;
 import course.spring.model.User;
@@ -17,11 +18,11 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UsersRestController {
     @Autowired
-    private UserRepository userRepo;
+    private UserService userService;
 
     @GetMapping
     public List<User> allUsers(){
-        return userRepo.findAll();
+        return userService.getAllUsers();
     }
 
 //    @GetMapping("{id}")
@@ -35,16 +36,13 @@ public class UsersRestController {
 
     @GetMapping("{id}")
     public User getUserById(@PathVariable("id") Long id) {
-        return userRepo.findById(id).orElseThrow(
-                () -> new NonexistingEntityException(
-                        String.format("User with ID='%d' not found.", id)
-                ));
+        return userService.getUserById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<User> addUser(@RequestBody User user) {
-        var newUser = userRepo.create(user);
+        var newUser = userService.addUser(user);
         return ResponseEntity.created(
                 ServletUriComponentsBuilder.fromCurrentRequest()
                         .pathSegment("{id}")
