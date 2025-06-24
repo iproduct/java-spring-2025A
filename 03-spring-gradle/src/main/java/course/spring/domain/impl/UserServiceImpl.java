@@ -1,5 +1,6 @@
 package course.spring.domain.impl;
 
+import course.spring.dao.IdGenerator;
 import course.spring.dao.UserRepository;
 import course.spring.domain.UserService;
 import course.spring.exception.NonexistingEntityException;
@@ -20,14 +21,21 @@ import org.springframework.web.context.ServletContextAware;
 
 import java.util.List;
 
-@Service("defaultUserService")
+//@Service("defaultUserService")
 @Log
 public class UserServiceImpl implements UserService, BeanNameAware, ApplicationContextAware, ServletContextAware  {
     private String beanName;
     private ApplicationContext ctx;
     private ServletContext servletContext;
-
     private UserRepository userRepo;
+
+    public UserServiceImpl(UserRepository userRepo) {
+        this.userRepo = userRepo;
+    }
+
+    public static UserService createUserService(UserRepository userRepository) {
+        return new UserServiceImpl(userRepository);
+    }
 
     @Override
     public void setBeanName(String name) {
@@ -47,7 +55,7 @@ public class UserServiceImpl implements UserService, BeanNameAware, ApplicationC
     @PostConstruct
     public void init() {
         log.info(String.format("!!!!! Bean '%s' constructed successfully.", beanName));
-        userRepo = ctx.getBean(UserRepository.class);
+//        userRepo = ctx.getBean(UserRepository.class);
     }
 
     @PreDestroy
