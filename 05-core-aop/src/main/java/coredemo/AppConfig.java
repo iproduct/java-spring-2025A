@@ -10,7 +10,6 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
 @Configuration
 @ComponentScan(basePackageClasses = coredemo.AppConfig.class)
-@EnableAspectJAutoProxy
 public class AppConfig {
 
     @Bean(name = "applicationEventMulticaster")
