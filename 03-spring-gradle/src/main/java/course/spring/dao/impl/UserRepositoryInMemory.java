@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
-@Scope("singleton") //by default
+//@Repository
+//@Scope("singleton") //by default
 public class UserRepositoryInMemory extends RepositoryInMemory<Long, User> implements UserRepository {
     private static UserRepositoryInMemory theInstance = new UserRepositoryInMemory(new LongIdGenerator());
 
@@ -18,7 +18,7 @@ public class UserRepositoryInMemory extends RepositoryInMemory<Long, User> imple
         return theInstance;
     }
 
-    @Autowired
+//    @Autowired
     public UserRepositoryInMemory(IdGenerator<Long> idGenerator) {
         super(idGenerator);
     }
