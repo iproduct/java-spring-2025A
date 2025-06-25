@@ -20,7 +20,7 @@ public class DomainConfig {
 
     @Bean("longIdGen")
     @Scope("prototype")
-    public IdGenerator idGenerator() {
+    public IdGenerator<Long> idGenerator() {
         var idGen = new LongIdGenerator(); // POJO
         idGen.setInitialValue(initialValue);
         return idGen;
@@ -33,7 +33,8 @@ public class DomainConfig {
     }
 
     @Bean
-    public UserService userService() {
-        return new UserServiceImpl(userRepositoryInMemory(idGenerator()));
+    public UserService userService(UserRepository userRepository) {
+//        return new UserServiceImpl(userRepositoryInMemory(idGenerator()));
+        return new UserServiceImpl(userRepository);
     }
 }
