@@ -13,6 +13,7 @@ import java.util.Optional;
 
 
 @Repository("mockUserRepo")
+@Qualifier("MOCK")
 public class UserRepositoryMockImpl implements UserRepository {
     private List<User> users = List.of(
             new User(1L, "User", "One", LocalDate.now(), "user1", "user1", Role.READER, "user1@gmail.com", true),

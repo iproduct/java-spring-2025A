@@ -8,6 +8,7 @@ import course.spring.dao.impl.UserRepositoryInMemory;
 import course.spring.domain.UserService;
 import course.spring.domain.impl.UserServiceImpl;
 import jakarta.persistence.Id;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 
@@ -27,13 +28,14 @@ public class DomainConfig {
     }
 
     @Bean
+    @Qualifier("IN_MEMORY")
     @DependsOn("longIdGen")
     public UserRepository userRepositoryInMemory(IdGenerator<Long> idGenerator) {
         return new UserRepositoryInMemory(idGenerator);
     }
 
     @Bean
-    public UserService userService(UserRepository userRepository) {
+    public UserService userService(@Qualifier("IN_MEMORY") UserRepository userRepository) {
 //        return new UserServiceImpl(userRepositoryInMemory(idGenerator()));
         return new UserServiceImpl(userRepository);
     }
