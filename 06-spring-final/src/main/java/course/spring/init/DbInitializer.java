@@ -41,6 +41,8 @@ public class DbInitializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("User service:" + userService.toString());
-        USERS.forEach(userService::addUser);
+        if(userService.getCount() == 0) {
+            USERS.forEach(userService::addUser);
+        }
     }
 }
