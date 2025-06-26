@@ -1,14 +1,22 @@
 package course.spring.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
+@MappedSuperclass
 public class Person implements Identifiable<Long>, Comparable<Person> {
     private static Long nextId = 0L;
     public static Long getNextId() {
         return ++nextId;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;

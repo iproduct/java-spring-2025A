@@ -1,6 +1,5 @@
 package course.spring.domain.impl;
 
-import course.spring.dao.IdGenerator;
 import course.spring.dao.UserRepository;
 import course.spring.domain.UserService;
 import course.spring.exception.NonexistingEntityException;
@@ -12,16 +11,14 @@ import lombok.extern.java.Log;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.ServletConfigAware;
 import org.springframework.web.context.ServletContextAware;
 
 import java.util.List;
 
-//@Service("defaultUserService")
+@Service("userService")
 @Log
 public class UserServiceImpl implements UserService, BeanNameAware, ApplicationContextAware, ServletContextAware  {
     private String beanName;
@@ -29,6 +26,7 @@ public class UserServiceImpl implements UserService, BeanNameAware, ApplicationC
     private ServletContext servletContext;
     private UserRepository userRepo;
 
+    @Autowired
     public UserServiceImpl(UserRepository userRepo) {
         this.userRepo = userRepo;
     }
@@ -86,22 +84,21 @@ public class UserServiceImpl implements UserService, BeanNameAware, ApplicationC
 
     @Override
     public User addUser(User user) {
-        return userRepo.create(user);
+        user.setId(null);
+        return userRepo.save(user);
     }
 
     @Override
     public User updateUser(User user) {
-        return userRepo.update(user).orElseThrow(() -> new NonexistingEntityException(
-                String.format("User with username '%s' and ID='%s' not found.", user.getUsername(), user.getId())
-        ));
+        getUserById(user.getId());
+        return userRepo.save(user);
     }
 
     @Override
     public User deleteUserById(Long id) {
-        return userRepo.deleteById(id).orElseThrow(
-                () -> new NonexistingEntityException(
-                        String.format("User with ID='%d' not found.", id)
-                ));
+        var oldUser = getUserById(id);
+        userRepo.deleteById(id);
+        return oldUser;
     }
 
     @Override

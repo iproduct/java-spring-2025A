@@ -1,6 +1,7 @@
 package course.spring.init;
 
 import course.spring.dao.UserRepository;
+import course.spring.domain.UserService;
 import course.spring.model.User;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,7 @@ import java.util.List;
 @Log
 public class DbInitializer implements ApplicationRunner {
     @Autowired
-    @Qualifier("IN_MEMORY")
-    private UserRepository userRepo;
+    private UserService userService;
 
     private static final List<User> USERS = List.of(
             new User("Ivan", "Petrov", LocalDate.of(1978, 5, 17),
@@ -40,7 +40,7 @@ public class DbInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        log.info("User repo:" + userRepo.toString());
-        USERS.forEach(userRepo::create);
+        log.info("User service:" + userService.toString());
+        USERS.forEach(userService::addUser);
     }
 }
