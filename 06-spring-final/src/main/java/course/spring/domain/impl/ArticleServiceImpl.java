@@ -2,6 +2,7 @@ package course.spring.domain.impl;
 
 import course.spring.dao.ArticleRepository;
 import course.spring.domain.ArticleService;
+import course.spring.exception.NonexistingEntityException;
 import course.spring.model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ArticleServiceImpl  implements ArticleService {
+public class ArticleServiceImpl implements ArticleService {
     private ArticleRepository articleRepository;
 
     @Autowired
@@ -19,12 +20,15 @@ public class ArticleServiceImpl  implements ArticleService {
 
     @Override
     public List<Article> getAllArticles() {
-        return List.of();
+        return articleRepository.findAll();
     }
 
     @Override
     public Article getArticleById(Long id) {
-        return null;
+        return articleRepository.findById(id).orElseThrow(
+                () -> new NonexistingEntityException(
+                        String.format("Article with ID='%d' not found.", id)
+                ));
     }
 
     @Override
@@ -34,7 +38,7 @@ public class ArticleServiceImpl  implements ArticleService {
 
     @Override
     public Article addArticle(Article article) {
-        return null;
+        return articleRepository.save(article);
     }
 
     @Override

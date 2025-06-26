@@ -3,6 +3,7 @@ package course.spring.domain;
 import course.spring.model.Article;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ArticleService {
     List<Article> getAllArticles();

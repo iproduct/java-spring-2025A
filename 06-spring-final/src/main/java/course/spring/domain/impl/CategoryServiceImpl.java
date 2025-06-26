@@ -2,6 +2,7 @@ package course.spring.domain.impl;
 
 import course.spring.dao.CategoryRepository;
 import course.spring.domain.CategoryService;
+import course.spring.exception.NonexistingEntityException;
 import course.spring.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> getAllCategorys() {
-        return List.of();
+        return categoryRepository.findAll();
     }
 
     @Override
     public Category getCategoryById(Long id) {
-        return null;
+        return categoryRepository.findById(id).orElseThrow(
+                () -> new NonexistingEntityException(
+                        String.format("Category with ID='%d' not found.", id)
+                ));
     }
 
     @Override
@@ -34,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category addCategory(Category category) {
-        return null;
+        return categoryRepository.save(category);
     }
 
     @Override
