@@ -1,29 +1,42 @@
 package course.spring.domain.impl;
 
 import course.spring.dao.ArticleRepository;
+import course.spring.dao.CategoryRepository;
+import course.spring.dao.UserRepository;
 import course.spring.domain.ArticleService;
 import course.spring.exception.NonexistingEntityException;
 import course.spring.model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class ArticleServiceImpl implements ArticleService {
     private ArticleRepository articleRepository;
+    private CategoryRepository categoryRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public ArticleServiceImpl(ArticleRepository articleRepository) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, CategoryRepository categoryRepository, UserRepository userRepository) {
         this.articleRepository = articleRepository;
+        this.categoryRepository = categoryRepository;
+        this.userRepository = userRepository;
     }
 
+
+
+
     @Override
+    @Transactional(readOnly = true)
     public List<Article> getAllArticles() {
         return articleRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Article getArticleById(Long id) {
         return articleRepository.findById(id).orElseThrow(
                 () -> new NonexistingEntityException(
@@ -38,6 +51,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article addArticle(Article article) {
+        var categories = article.getCategories();
+        categories.stream().allMatch(cat ->categoryRepository.findById(cat.getId()).isPresent());
+        userRepository.findById(article.getAuthor().getId());
         return articleRepository.save(article);
     }
 
