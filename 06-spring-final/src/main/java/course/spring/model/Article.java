@@ -37,6 +37,12 @@ public class Article {
         this.author = author;
     }
 
+    public Article(String title, String content, Set<String> tags) {
+        this.title = title;
+        this.content = content;
+        this.tags = tags;
+    }
+
     public Article(String title, String content, User author, Set<String> tags, Set<Category> categories) {
         this.title = title;
         this.content = content;

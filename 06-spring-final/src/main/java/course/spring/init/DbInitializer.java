@@ -2,6 +2,8 @@ package course.spring.init;
 
 import course.spring.dao.UserRepository;
 import course.spring.domain.UserService;
+import course.spring.model.Article;
+import course.spring.model.Category;
 import course.spring.model.User;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @Log
@@ -38,11 +41,31 @@ public class DbInitializer implements ApplicationRunner {
                     "maya2", "mary123", "mayah@yahoo.com")
     );
 
+    private static final List<Category> CATEGORIES = List.of(
+            new Category("Java", "Java programming"),
+            new Category("Database", "Database persistence"),
+            new Category("Machine Learning", "Machine learning models and libraries")
+    );
+
+    private static final List<Article> ARTICLES = List.of(
+            new Article("Spring Data JPA Intro",
+                    "Generally, the query creation mechanism for JPA works as described in Query Methods.",
+                    Set.of("java", "spring", "data", "jpa")),
+            new Article("Hibernate & JPA ORM",
+                    "Hibernate, as an ORM solution, effectively \"sits between\" the Java application data access layer and the Relational Database, as can be seen in the diagram above.",
+                    Set.of("java", "hibernate", "data", "jpa", "orm")),
+            new Article("Spring Core Introduction",
+                    "Foremost amongst these is the Spring Framework’s Inversion of Control (IoC) container.",
+                    Set.of("java", "spring", "ioc", "bean", "context", "container"))
+    );
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("User service:" + userService.toString());
         if(userService.getCount() == 0) {
             USERS.forEach(userService::addUser);
         }
+        var users = userService.getAllUsers();
+
     }
 }
