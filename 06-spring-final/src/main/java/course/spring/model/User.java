@@ -1,8 +1,11 @@
 package course.spring.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 
 import static course.spring.model.Role.READER;
 
@@ -13,6 +16,8 @@ public class User extends Person {
     private Role role = READER;
     private String email;
     private boolean active = true;
+    @OneToMany(mappedBy = "author")
+    private List<Article> articles= Collections.emptyList();
 
     public User() {
     }
@@ -96,6 +101,7 @@ public class User extends Person {
     public void setActive(boolean active) {
         this.active = active;
     }
+
 
     @Override
     public String toString() {

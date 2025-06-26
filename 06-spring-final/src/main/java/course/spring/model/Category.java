@@ -1,0 +1,82 @@
+package course.spring.model;
+
+import jakarta.persistence.*;
+
+import java.util.Collections;
+import java.util.Objects;
+import java.util.Set;
+
+@Entity
+public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String description;
+    @ManyToMany(mappedBy = "categories")
+    private Set<Article> articles = Collections.emptySet();
+
+    public Category() {
+    }
+
+    public Category(Long id) {
+        this.id = id;
+    }
+
+    public Category(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public Category(String name, String description, Set<Article> articles) {
+        this.name = name;
+        this.description = description;
+        this.articles = articles;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (!(o instanceof Category category)) return false;
+
+        return Objects.equals(id, category.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Category{");
+        sb.append("id=").append(getId());
+        sb.append(", name='").append(getName()).append('\'');
+        sb.append(", description='").append(getDescription()).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
+}
