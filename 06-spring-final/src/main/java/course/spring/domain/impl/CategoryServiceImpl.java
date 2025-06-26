@@ -53,6 +53,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public long getCount() {
-        return 0;
+        return categoryRepository.count();
     }
 }

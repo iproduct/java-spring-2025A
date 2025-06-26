@@ -53,7 +53,13 @@ public class ArticleServiceImpl implements ArticleService {
     public Article addArticle(Article article) {
         var categories = article.getCategories();
         categories.stream().allMatch(cat ->categoryRepository.findById(cat.getId()).isPresent());
-        userRepository.findById(article.getAuthor().getId());
+        var author = userRepository.findById(article.getAuthor().getId()).orElseThrow(
+                () -> new NonexistingEntityException(
+                        String.format("Author with ID='%d' not found.", article.getAuthor().getId())
+                )
+        );
+        article.setAuthor(author);
+        author.getArticles().add(article);
         return articleRepository.save(article);
     }
 
@@ -69,6 +75,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public long getCount() {
-        return 0;
+        return articleRepository.count();
     }
 }

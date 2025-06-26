@@ -1,5 +1,6 @@
 package course.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ public class Article {
     private String title;
     private String content;
     @ManyToOne
+    @JsonIgnore
     private User author;
     private LocalDateTime publicationDate =  LocalDateTime.now();
     @ElementCollection(fetch = FetchType.EAGER)

@@ -1,6 +1,8 @@
 package course.spring.init;
 
 import course.spring.dao.UserRepository;
+import course.spring.domain.ArticleService;
+import course.spring.domain.CategoryService;
 import course.spring.domain.UserService;
 import course.spring.model.Article;
 import course.spring.model.Category;
@@ -21,6 +23,12 @@ import java.util.Set;
 public class DbInitializer implements ApplicationRunner {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private ArticleService articleService;
 
     private static final List<User> USERS = List.of(
             new User("Ivan", "Petrov", LocalDate.of(1978, 5, 17),
@@ -66,6 +74,16 @@ public class DbInitializer implements ApplicationRunner {
             USERS.forEach(userService::addUser);
         }
         var users = userService.getAllUsers();
+        if(categoryService.getCount() == 0) {
+            CATEGORIES.forEach(categoryService::addCategory);
+        }
+        var categories = categoryService.getAllCategorys();
+        if(articleService.getCount() == 0) {
+            ARTICLES.forEach(article -> {
+                article.setAuthor(users.getFirst());
+                articleService.addArticle(article);
+            });
+        }
 
     }
 }

@@ -102,6 +102,13 @@ public class User extends Person {
         this.active = active;
     }
 
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
 
     @Override
     public String toString() {
