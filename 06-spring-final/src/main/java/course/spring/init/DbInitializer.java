@@ -81,6 +81,7 @@ public class DbInitializer implements ApplicationRunner {
         if(articleService.getCount() == 0) {
             ARTICLES.forEach(article -> {
                 article.setAuthor(users.getFirst());
+                article.setCategories(Set.of(categories.get(0),categories.get(1)));
                 articleService.addArticle(article);
             });
         }
