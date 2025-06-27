@@ -18,7 +18,6 @@ public class Article {
     private String title;
     private String content;
     @ManyToOne
-    @JsonIgnore
     private User author;
     private LocalDateTime publicationDate =  LocalDateTime.now();
     @ElementCollection(fetch = FetchType.EAGER)

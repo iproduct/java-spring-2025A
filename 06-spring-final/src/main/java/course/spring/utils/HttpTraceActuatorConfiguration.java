@@ -1,4 +1,4 @@
-package course.spring.util;
+package course.spring.utils;
 
 
 import org.springframework.boot.actuate.web.exchanges.HttpExchangeRepository;

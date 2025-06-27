@@ -3,6 +3,8 @@ package course.spring.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -22,17 +24,19 @@ import static course.spring.model.Role.READER;
 public class User extends Person {
     @Basic(optional = false)
     @Column(  nullable = false, updatable = false, length = 30)
+    @Size(min = 2, max = 30)
     private String username;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+    @Enumerated(EnumType.STRING)
     private Role role = READER;
     @Basic(optional = false)
     @Column(  nullable = false, length = 60)
+    @Email
     private String email;
     private boolean active = true;
     @OneToMany(mappedBy = "author")
     @JsonIgnore
-
     private List<Article> articles= Collections.emptyList();
 
     public User() {
