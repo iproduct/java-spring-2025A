@@ -67,12 +67,17 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article updateArticle(Article article) {
-        return null;
+        // TODO update data validation
+        getArticleById(article.getId());
+        return articleRepository.save(article);
     }
 
     @Override
     public Article deleteArticleById(Long id) {
-        return null;
+        var old = getArticleById(id);
+        old.getAuthor().getArticles().remove(old);
+        articleRepository.deleteById(id);
+        return old;
     }
 
     @Override

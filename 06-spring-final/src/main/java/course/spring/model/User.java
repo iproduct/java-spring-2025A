@@ -1,5 +1,7 @@
 package course.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -21,6 +23,7 @@ public class User extends Person {
     @Basic(optional = false)
     @Column(  nullable = false, updatable = false, length = 30)
     private String username;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private Role role = READER;
     @Basic(optional = false)
@@ -28,6 +31,8 @@ public class User extends Person {
     private String email;
     private boolean active = true;
     @OneToMany(mappedBy = "author")
+    @JsonIgnore
+
     private List<Article> articles= Collections.emptyList();
 
     public User() {

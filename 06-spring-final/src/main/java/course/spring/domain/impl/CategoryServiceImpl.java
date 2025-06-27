@@ -33,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> getCategoryByName(String name) {
-        return null;
+        return categoryRepository.findByNameContaining(name);
     }
 
     @Override
@@ -43,7 +43,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category updateCategory(Category category) {
-        return null;
+        getCategoryById(category.getId());
+        return categoryRepository.save(category);
     }
 
     @Override

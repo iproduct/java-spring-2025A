@@ -12,7 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categorys")
+@RequestMapping("/api/categories")
 public class CategoryRestController {
     @Autowired
     private CategoryService categoryService;
@@ -32,12 +32,10 @@ public class CategoryRestController {
         return categoryService.getCount();
     }
 
-    @GetMapping("/categoryname/{title}")
-    public List<Category> getCategoryByName(@PathVariable("title") String title) {
+    @GetMapping(params = "title")
+    public List<Category> getCategoryByName(@RequestParam("title") String title) {
         return categoryService.getCategoryByName(title);
     }
-
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
