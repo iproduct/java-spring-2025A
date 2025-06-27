@@ -16,3 +16,7 @@ Spring Data JPA - https://iproduct.org/wp-content/uploads/2025/06/Spring_2024_5_
 Official Spring Documentation - https://docs.spring.io/spring-framework/reference/index.html
 
 Spring Data method DSL - https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html
+
+
+### Additional Resources
+Column ordering strategies in Hibernate - https://robertniestroj.hashnode.dev/ordering-columns-in-a-table-in-jpahibernate

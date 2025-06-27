@@ -19,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getAllCategorys() {
+    public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
 
@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getCategoryByName(String name) {
+    public List<Category> getCategoryByName(String name) {
         return null;
     }
 

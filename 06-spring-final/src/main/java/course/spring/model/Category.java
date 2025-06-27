@@ -13,8 +13,6 @@ public class Category {
     private Long id;
     private String name;
     private String description;
-    @ManyToMany(mappedBy = "categories")
-    private Set<Article> articles = Collections.emptySet();
 
     public Category() {
     }
@@ -26,12 +24,6 @@ public class Category {
     public Category(String name, String description) {
         this.name = name;
         this.description = description;
-    }
-
-    public Category(String name, String description, Set<Article> articles) {
-        this.name = name;
-        this.description = description;
-        this.articles = articles;
     }
 
     public Long getId() {

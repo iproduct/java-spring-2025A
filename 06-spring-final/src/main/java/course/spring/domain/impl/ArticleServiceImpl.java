@@ -27,9 +27,6 @@ public class ArticleServiceImpl implements ArticleService {
         this.userRepository = userRepository;
     }
 
-
-
-
     @Override
     @Transactional(readOnly = true)
     public List<Article> getAllArticles() {
@@ -46,8 +43,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Article getArticleByTile(String title) {
-        return null;
+    public  List<Article> getArticlesByTitle(String title) {
+        return articleRepository.findByTitleContaining(title);
     }
 
     @Override

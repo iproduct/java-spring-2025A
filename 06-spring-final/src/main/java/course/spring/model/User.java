@@ -1,7 +1,6 @@
 package course.spring.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -10,10 +9,22 @@ import java.util.List;
 import static course.spring.model.Role.READER;
 
 @Entity
+//@Table(name="USERS", uniqueConstraints = {
+//        @UniqueConstraint(name="UC_USERNAME", columnNames={"USERNAME"}),
+//        @UniqueConstraint(name="UC_FIST_LAST_NAME", columnNames={"FIRST_NAME", "LAST_NAME"})
+//})
+@Table(name="USERS", indexes = {
+        @Index(name = "UC_USERNAME", columnList = "USERNAME", unique = true),
+        @Index(name = "UC_NAMES", columnList = "FIRST_NAME,LAST_NAME",  unique = true),
+})
 public class User extends Person {
+    @Basic(optional = false)
+    @Column(  nullable = false, updatable = false, length = 30)
     private String username;
     private String password;
     private Role role = READER;
+    @Basic(optional = false)
+    @Column(  nullable = false, length = 60)
     private String email;
     private boolean active = true;
     @OneToMany(mappedBy = "author")
@@ -43,17 +54,17 @@ public class User extends Person {
         this.email = email;
     }
 
-    public User(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, Role role, String email, boolean active) {
-        super(firstName, lastName, dateOfBirth);
-        this.username = username;
-        this.password = password;
-        this.role = role;
-        this.email = email;
-        this.active = active;
-    }
+//    public User(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, Role role, String email, boolean active) {
+//        super(firstName, lastName, dateOfBirth);
+//        this.username = username;
+//        this.password = password;
+//        this.role = role;
+//        this.email = email;
+//        this.active = active;
+//    }
 
-    public User(Long id, String firstName, String lastName, LocalDate dateOfBirth, String username, String password,
-                Role role, String email, boolean active) {
+
+    public User(long id, String firstName, String lastName, LocalDate dateOfBirth, String username, String password, Role role, String email, boolean active) {
         super(id, firstName, lastName, dateOfBirth);
         this.username = username;
         this.password = password;
